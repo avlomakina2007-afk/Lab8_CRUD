@@ -44,6 +44,9 @@
             this.buttonExport = new System.Windows.Forms.Button();
             this.buttonUndo = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.labelSearchFIO = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGrade)).BeginInit();
@@ -190,11 +193,40 @@
             this.labelStatus.TabIndex = 15;
             this.labelStatus.Text = "Готово";
             // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Location = new System.Drawing.Point(128, 224);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(100, 22);
+            this.textBoxSearch.TabIndex = 16;
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(311, 224);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 17;
+            this.buttonSearch.Text = "Найти";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // labelSearchFIO
+            // 
+            this.labelSearchFIO.AutoSize = true;
+            this.labelSearchFIO.Location = new System.Drawing.Point(12, 224);
+            this.labelSearchFIO.Name = "labelSearchFIO";
+            this.labelSearchFIO.Size = new System.Drawing.Size(103, 16);
+            this.labelSearchFIO.TabIndex = 18;
+            this.labelSearchFIO.Text = "Поиск по ФИО:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 553);
+            this.Controls.Add(this.labelSearchFIO);
+            this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.buttonUndo);
             this.Controls.Add(this.buttonExport);
@@ -241,6 +273,9 @@
         private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button buttonUndo;
         private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Label labelSearchFIO;
     }
 }
 

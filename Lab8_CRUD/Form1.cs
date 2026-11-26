@@ -35,34 +35,44 @@ namespace Lab8_CRUD
             LoadStudents();
         }
 
-        private void LoadStudents()
+        private void LoadStudents(string searchText = "")
         {
             try
             {
-                string sql = "SELECT Id, FullName, Age, GroupName, AverageGrade " +
-                             "FROM Students ORDER BY Id";
+                // Базовый запрос
+                string sql = "SELECT Id, FullName, Age, GroupName, AverageGrade FROM Students";
+
+                // Если в поиске есть текст, добавляем условие WHERE
+                if (!string.IsNullOrWhiteSpace(searchText))
+                {
+                    sql += " WHERE FullName LIKE @search";
+                }
+
+                sql += " ORDER BY Id";
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conn))
                 {
+                    // Если поиск активен, передаем параметр
+                    if (!string.IsNullOrWhiteSpace(searchText))
+                    {
+                        // Знаки % означают "любые символы до и после"
+                        adapter.SelectCommand.Parameters.AddWithValue("@search", "%" + searchText.Trim() + "%");
+                    }
+
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dataGridViewStudents.DataSource = dt;
 
+                    // ... (остальной код настройки колонок из вашей 8-й лабы оставляем без изменений) ...
                     if (dataGridViewStudents.Columns.Contains("Id"))
                         dataGridViewStudents.Columns["Id"].Visible = false;
-
-                    dataGridViewStudents.Columns["FullName"].HeaderText = "ФИО";
-                    dataGridViewStudents.Columns["Age"].HeaderText = "Возраст";
-                    dataGridViewStudents.Columns["GroupName"].HeaderText = "Группа";
-                    dataGridViewStudents.Columns["AverageGrade"].HeaderText = "Средний балл";
                 }
                 UpdateStatus("Данные загружены");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка загрузки: " + ex.Message, "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка загрузки: " + ex.Message);
             }
         }
 
@@ -312,5 +322,13 @@ namespace Lab8_CRUD
 
             labelStatus.Text = $"{message} | Всего студентов: {count}";
         }
+
+        // Нажатие на кнопку "Найти"
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            // Вызываем загрузку с текстом из поисковой строки
+            LoadStudents(textBoxSearch.Text);
+        }
+
     }
 }
